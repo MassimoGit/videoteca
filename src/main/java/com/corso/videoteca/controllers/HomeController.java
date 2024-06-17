@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.corso.videoteca.dto.TestDto;
+import com.corso.videoteca.entities.Film;
 
 //URL DI BASE APP 127.0.0.1:8080/ -> localhost:8080/
 @Controller
@@ -20,7 +21,12 @@ public class HomeController {
 		
 		System.out.println("IO SONO NELL'ENDPOINT GET DELL'INDEX");
 		
-		model.addAttribute("form", new TestDto());
+		// 1 stringa è il nome che avra la variabile in THYMELEAF
+		// 2 è l'oggetto che contiene realmente i valori
+		model.addAttribute("form", new TestDto());  
+		Film f = new Film();
+		f.setTitle("Titanic");
+		model.addAttribute("prova", f);
 		
 		return "index"; // sta cercando in resources/templates/index    con ext.html
 	}
@@ -44,7 +50,8 @@ public class HomeController {
 		
 		model.addAttribute("pippo",prova);
 		model.addAttribute("parole",parole);
+		model.addAttribute("form", form);
 		
-		return "film/test"; //sta cercando /resources/templates/film/test.html
+		return "test"; //sta cercando /resources/templates/film/test.html
 	}
 }
