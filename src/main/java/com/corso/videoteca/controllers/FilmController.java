@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.corso.videoteca.entities.Film;
+
 
 /*
  * GET   /film/ -> index e stampa tutti i film
@@ -17,14 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class FilmController {
 	
-	
-	@GetMapping("/create")
+	//URL = RequestMapping + mapping del singolo metodo
+	@GetMapping("/create")   // URL /film/create
 	public String create(Model model) {
 		System.out.println("GET FILM CREATE");
+		
+		model.addAttribute("form", new Film());
 		return "film/create";
 	}
 	
-	@PostMapping("/create")
+	@PostMapping("/create")   // URL  /film/create
 	public String store(Model model) {
 		System.out.println("POST FILM CREATE");
 		
