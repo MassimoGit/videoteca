@@ -20,26 +20,27 @@
             <form action="/film/create" method="post" th:object="${form}">
                 <div class="card-body">
                     <div class="mb-3 row">
-                        <label for="title" class="col-4 col-form-label">Nome</label>
+                        <label for="title" class="col-4 col-form-label">Titolo</label>
                         <div class="col-8">
                             <input type="text" class="form-control" placeholder="Titolo" th:field="*{title}" />
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="lastname" class="col-4 col-form-label">Cognome</label>
+                        <label for="director" class="col-4 col-form-label">Regista</label>
                         <div class="col-8">
-                            <input type="text" class="form-control"  placeholder="cognome"  th:field="*{lastname}" />
+                            <input type="text" class="form-control"  placeholder="Regista"  th:field="*{director}" />
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="number" class="col-4 col-form-label">Numeri</label>
+                        <label for="duration" class="col-4 col-form-label">Durata</label>
                         <div class="col-8">
-                            <select class="form-control" placeholder="numero"   th:field="*{number}">
-                                <option value="1">Uno</option>
-                                <option value="2">due</option>
-                                <option value="3">tre</option>
-                                <option value="4">quattro</option>
-                            </select>
+                            <input type="number" class="form-control"  placeholder="durata"  th:field="*{duration}" />
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="published" class="col-4 col-form-label">Data Rilascio</label>
+                        <div class="col-8">
+                            <input type="date" class="form-control"  placeholder="Data rilascio"  th:field="*{published}" />
                         </div>
                     </div>
                 </div>
