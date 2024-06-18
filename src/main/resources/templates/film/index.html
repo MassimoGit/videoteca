@@ -54,9 +54,34 @@
                                         Modifica
                                     </a> 
                                     
-                                    <a type="button" class="btn btn-outline-danger" th:href="@{/film/delete/} + ${film.id}">
-                                        Elimina
-                                    </a>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-th-data-bs-target="'#modale' + ${film.id}">
+                                       Cancella
+                                    </button>
+
+                                    <div class="modal fade" th:id="'modale' + ${film.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h1 class="modal-title fs-5" id="staticBackdropLabel">Conferma cancellazione</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Vuoi eliminare il film <span th:text="${film.title}"></span>?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                                              <a type="button" class="btn btn-outline-danger" th:href="@{/film/delete/} + ${film.id}">
+                                                Elimina
+                                               </a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+
+
+
+                                    
                                     
                                 </td>
                             </tr>
