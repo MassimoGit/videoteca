@@ -50,9 +50,9 @@
                                     <p th:text="${film.published}"></p>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <a class="btn btn-outline-warning" th:href="@{/film/update/} + ${film.id}">
                                         Modifica
-                                    </button> 
+                                    </a> 
                                     
                                     <button type="button" class="btn btn-outline-danger">
                                         Elimina

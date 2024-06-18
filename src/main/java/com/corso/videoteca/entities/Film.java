@@ -1,6 +1,7 @@
 package com.corso.videoteca.entities;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,4 +29,14 @@ public class Film {
 	private Integer duration;
 	
 	private String director;
+	
+	
+	public String getIsoPublished() {
+		
+		if(this.published == null)
+			return "";
+		
+		
+		return this.published.format(DateTimeFormatter.ISO_DATE);
+	}
 }

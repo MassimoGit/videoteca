@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,10 +14,14 @@ import com.corso.videoteca.entities.Film;
 import com.corso.videoteca.repositories.FilmRepository;
 
 
-/* Met    URL - END-POINT
+/* 
+ * Met    URL - END-POINT
  * GET   /film/ -> index e stampa tutti i film
  * GET   /film/create -> mostra il form di creazione film
  * POST	 /film/create -> riceve i dati del form film e crea un nuovo film	
+ * GET   /film/update/{id}   -> Visualizza il form di aggiornamento del film con id={id}
+ * POST  /film/update/{id}   -> RICEVE I DATI DAL FORM DI AGGIORNAMENTO E AGGIORNA IL DB
+* GET/POST   /film/delete/{id}   -> Elimina il film con l'id = {id}
  */
 
 @RequestMapping("/film")
@@ -57,6 +62,31 @@ public class FilmController {
 		
 		System.out.println(creato);
 		
-		return "redirect:/film/create";  //redirect: vai a endpoint /film/create
+		return "redirect:/film/";  //redirect: vai a endpoint /film/
 	}
+	
+	@GetMapping("/update/{id}")   // {id} è una path Variable
+	public String edit(@PathVariable Long id, Model model) {
+		
+		//
+	    Film f = fr.findById(id).get();
+		
+	    model.addAttribute("form",f);
+		
+		return "film/update";
+	}
+	
+	
+	@PostMapping("/update/{id}")
+	public String update(Model model,Film form,@PathVariable Long id ) {
+		System.out.println("POST FILM UPDATE");
+		System.out.println(form);
+		
+		form.setId(id); //IMPOSTA L'ID 
+		Film update = fr.save(form);
+		System.out.println(update); 
+		
+		return "redirect:/film/";  //redirect: vai a endpoint /film/
+	}
+	
 }
