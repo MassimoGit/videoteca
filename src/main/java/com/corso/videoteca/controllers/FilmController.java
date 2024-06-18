@@ -89,4 +89,14 @@ public class FilmController {
 		return "redirect:/film/";  //redirect: vai a endpoint /film/
 	}
 	
+	@GetMapping("/delete/{id}")   // {id} è una path Variable
+	public String delete(@PathVariable Long id) {
+		
+		//
+	    Film f = fr.findById(id).get();
+	    fr.delete(f);
+		System.out.println("Cancellazione prima del redirect");
+		return "redirect:/film/";
+	}
+	
 }
