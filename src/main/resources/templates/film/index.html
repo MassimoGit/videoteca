@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Videoteca</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista Film</h3>
+                <!--  <p th:text="${prova}"></p> -->
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-borderless table-primary align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Titolo</th>
+                                <th>Regista</th>
+                                <th>Durata</th>
+                                <th>Data Rilasco</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <!-- for(Film film : listaFilm)-->
+                            <tr class="table-primary" th:each="film : ${films}">
+                                <td>
+                                    <p th:text="${film.id}"></p>  <!-- non va a legger film.id ma usa film.getId()  -->
+                                </td>
+                                <td>
+                                    <p th:text="${film.title}"></p>
+                                </td>
+                                <td>
+                                    <p th:text="${film.director}"></p>
+                                </td>
+                                <td>
+                                    <p>
+                                    	<span th:text="${film.duration}"></span>
+                                    	 <span>Minuti</span>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p th:text="${film.published}"></p>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-warning">
+                                        Modifica
+                                    </button> 
+                                    
+                                    <button type="button" class="btn btn-outline-danger">
+                                        Elimina
+                                    </button>
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+</body>

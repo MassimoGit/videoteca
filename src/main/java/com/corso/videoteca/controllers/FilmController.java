@@ -1,5 +1,7 @@
 package com.corso.videoteca.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +27,22 @@ public class FilmController {
 	@Autowired
 	private FilmRepository fr;
 	
+	@GetMapping("/")
+	public String index(Model model) {
+		//devo caricare la lista di tutti i film dal database
+		// la metto nel model
+		// restituisco una view di Thymeleaf
+		
+		 List<Film> ls = fr.findAll();
+		 model.addAttribute("films",ls);
+		 
+		 return "film/index"; // resources/templates/film/index.html
+	}
+
 	//URL = RequestMapping + mapping del singolo metodo
 	@GetMapping("/create")   // URL /film/create
 	public String create(Model model) {
 		System.out.println("GET FILM CREATE");
-		
 		model.addAttribute("form", new Film());
 		return "film/create";
 	}
@@ -40,6 +53,7 @@ public class FilmController {
 		System.out.println(form);
 		
 		Film creato = fr.save(form);
+		
 		
 		System.out.println(creato);
 		
