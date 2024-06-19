@@ -1,42 +1,48 @@
 package com.corso.videoteca.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 @Entity
+@Table(name = "film")
 public class Film {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String title;
-	
-	private LocalDate published;
-	
-	private Integer duration;
-	
-	private String director;
-	
-	
-	public String getIsoPublished() {
-		
-		if(this.published == null)
-			return "";
-		
-		
-		return this.published.format(DateTimeFormatter.ISO_DATE);
-	}
+    @Size(max = 255)  //Validazione a livello di app
+    @Column(name = "director") // IL DB
+    private String director;
+
+    @Column(name = "duration")
+    private Integer duration;
+
+    @Column(name = "published")
+    private LocalDate published;
+
+    @Size(max = 255,min = 2)  //Validazione a livello di app
+    @Column(name = "title", nullable = false)  // IL DB
+    private String title;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
+
+
+    public String getIsoPublished() {
+
+        if(this.published == null)
+            return "";
+        return this.published.format(DateTimeFormatter.ISO_DATE);
+    }
+
+
 }
