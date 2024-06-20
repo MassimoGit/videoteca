@@ -40,7 +40,8 @@ public class Film {
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
-
+    @OneToMany(mappedBy = "film")
+    private Set<Play> plays = new LinkedHashSet<>();
 
 
     public String getIsoPublished() {

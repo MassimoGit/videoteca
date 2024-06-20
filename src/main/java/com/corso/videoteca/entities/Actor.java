@@ -32,6 +32,7 @@ public class Actor {
     @Column(name = "dob")
     private LocalDate dob;
 
-
+    @OneToMany(mappedBy = "actor")
+    private Set<Play> plays = new LinkedHashSet<>();
 
 }
