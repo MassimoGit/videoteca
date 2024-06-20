@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.corso.videoteca.dto.FilmSearchDto;
 import com.corso.videoteca.entities.Film;
 import com.corso.videoteca.repositories.FilmRepository;
 import com.corso.videoteca.repositories.GenreRepository;
@@ -26,7 +27,7 @@ import com.corso.videoteca.repositories.GenreRepository;
 * GET/POST   /film/delete/{id}   -> Elimina il film con l'id = {id}
  */
 
-@RequestMapping("/film")
+@RequestMapping("/film/")
 @Controller
 public class FilmController {
 	
@@ -36,14 +37,17 @@ public class FilmController {
 	@Autowired
 	private GenreRepository gr;
 	
-	@GetMapping("/")
+	@GetMapping("")  
 	public String index(Model model) {
 		//devo caricare la lista di tutti i film dal database
 		// la metto nel model
 		// restituisco una view di Thymeleaf
 		
 		 Set<Film> ls = fr.findAllByOrderByTitle();
+		 
 		 model.addAttribute("films",ls);
+		 
+		 // films è una lista ha il contenuto di ls
 		 
 		 System.out.println(ls);
 		 
@@ -51,7 +55,7 @@ public class FilmController {
 	}
 
 	//URL = RequestMapping + mapping del singolo metodo
-	@GetMapping("/create")   // URL /film/create
+	@GetMapping("create")   // URL /film/create
 	public String create(Model model) {
 		System.out.println("GET FILM CREATE");
 		model.addAttribute("form", new Film());
@@ -60,7 +64,7 @@ public class FilmController {
 		return "film/create";
 	}
 	
-	@PostMapping("/create")   // URL  /film/create
+	@PostMapping("create")   // URL  /film/create
 	public String store(Model model,Film form) {
 		System.out.println("POST FILM CREATE");
 		System.out.println(form);
@@ -73,7 +77,7 @@ public class FilmController {
 		return "redirect:/film/";  //redirect: vai a endpoint /film/
 	}
 	
-	@GetMapping("/update/{id}")   // {id} è una path Variable
+	@GetMapping("update/{id}")   // {id} è una path Variable
 	public String edit(@PathVariable Long id, Model model) {
 		
 		//
@@ -85,7 +89,7 @@ public class FilmController {
 	}
 	
 	
-	@PostMapping("/update/{id}")
+	@PostMapping("update/{id}")
 	public String update(Model model,Film form,@PathVariable Long id ) {
 		System.out.println("POST FILM UPDATE");
 		System.out.println(form);
@@ -97,7 +101,7 @@ public class FilmController {
 		return "redirect:/film/";  //redirect: vai a endpoint /film/
 	}
 	
-	@GetMapping("/delete/{id}")   // {id} è una path Variable
+	@GetMapping("delete/{id}")   // {id} è una path Variable
 	public String delete(@PathVariable Long id) {
 		
 		//
@@ -107,4 +111,49 @@ public class FilmController {
 		return "redirect:/film/";
 	}
 	
+	
+	@GetMapping("search")
+	public String search(Model model) {
+		
+		long genre_id = 1L;
+		Set<Film> films =  fr.findByGenre_IdOrderByTitleAsc(genre_id);
+		
+		System.out.println(films);
+		model.addAttribute("form", new FilmSearchDto());
+		model.addAttribute("genres", gr.findAllByOrderByName());
+		
+		return  "film/search";
+	}
+	
+	
+	@PostMapping("search")
+	public String findSearch(FilmSearchDto form,Model model) {
+		
+		System.out.println(form);
+		
+		
+		if(form.getTitle() != null  && form.getTitle().length() >2 )
+		{
+			form.setTitle("%" +  form.getTitle()   +"%");
+		}
+		
+		System.out.println(form);
+		
+		if(form.getGenre_id() != null) {
+			Set<Film> risultato = fr.findByGenre_IdAndTitleLikeIgnoreCaseOrderByTitleAsc(form.getGenre_id(),form.getTitle());
+			System.out.println(risultato);
+			model.addAttribute("films",risultato);
+		}
+		else {
+			Set<Film> risultato = fr.findByTitleLikeIgnoreCaseOrderByTitleAsc(form.getTitle());
+			System.out.println(risultato);
+			model.addAttribute("films",risultato);
+		}
+			
+		
+
+		
+		
+		return "film/index";
+	}
 }
