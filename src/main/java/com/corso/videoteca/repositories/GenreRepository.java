@@ -9,5 +9,5 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
 
 
 
-    Set<Genre> findAllByOrderByName();
+    public Set<Genre> findAllByOrderByName();
 }

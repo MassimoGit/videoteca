@@ -55,6 +55,7 @@ public class FilmController {
 	public String create(Model model) {
 		System.out.println("GET FILM CREATE");
 		model.addAttribute("form", new Film());
+		
 		model.addAttribute("genres", gr.findAllByOrderByName());
 		return "film/create";
 	}
@@ -77,8 +78,8 @@ public class FilmController {
 		
 		//
 	    Film f = fr.findById(id).get();
-		
 	    model.addAttribute("form",f);
+		model.addAttribute("genres", gr.findAllByOrderByName());
 		
 		return "film/update";
 	}
