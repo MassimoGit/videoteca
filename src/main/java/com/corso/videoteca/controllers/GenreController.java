@@ -27,7 +27,7 @@ public class GenreController {
 
     @GetMapping("create")
     public String create(Model model) {
-       model.addAttribute("genre", new Genre());
+       model.addAttribute("form", new Genre());
        return "genre/create";
     }
 
@@ -39,7 +39,8 @@ public class GenreController {
 
     @GetMapping("update/{id}")
     public String update(@RequestParam Long id, Model model) {
-       gr.findById(id).orElseThrow();
+
+       model.addAttribute("form", gr.findById(id).get());
 
        return "genre/update";
     }

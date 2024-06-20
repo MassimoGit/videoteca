@@ -23,6 +23,7 @@
                                 <th>ID</th>
                                 <th>Titolo</th>
                                 <th>Regista</th>
+                                <th>Genere</th>
                                 <th>Durata</th>
                                 <th>Data Rilasco</th>
                                 <th>Azioni</th>
@@ -39,6 +40,14 @@
                                 </td>
                                 <td>
                                     <p th:text="${film.director}"></p>
+                                </td>
+                                <td>
+                                    <p th:if="${film.genre != null}">
+                                        <span th:text="${film.genre.name}"></span>
+                                    </p>   
+                                    <p th:unless="${film.genre != null}">
+                                        <span>Nessun genere selezionato</span>
+                                    </p>
                                 </td>
                                 <td>
                                     <p>
