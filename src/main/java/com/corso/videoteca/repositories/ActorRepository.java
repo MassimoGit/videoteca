@@ -8,14 +8,16 @@ import java.util.Set;
 
 public interface ActorRepository extends JpaRepository<Actor, Long> {
 
+    Set<Actor>findAllByOrderByLastnameAscFirstnameAsc();
 
     Set<Actor> findByFirstnameContainsIgnoreCaseOrLastnameContainsIgnoreCaseOrderByLastnameAscFirstnameAsc(String firstname, String lastname);
 
 
     //Dal Film troviamo il cast
     Set<Actor> findByPlays_FilmOrderByLastnameAscFirstnameAsc(Film film);
-
+    //Dall'id Film troviamo il cast
     Set<Actor> findByPlays_Film_IdOrderByLastnameAscFirstnameAsc(Long id);
+
 
 
 }
