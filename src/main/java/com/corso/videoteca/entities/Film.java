@@ -13,8 +13,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Entity
 @ToString
+@Entity
 @Table(name = "film")
 public class Film {
     @Id
@@ -36,10 +36,11 @@ public class Film {
     @Column(name = "title", nullable = false)  // IL DB
     private String title;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "genre_id")
     private Genre genre;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "film")
     private Set<Play> plays = new LinkedHashSet<>();
 

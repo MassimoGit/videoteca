@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "actor")
 public class Actor {
@@ -31,6 +33,7 @@ public class Actor {
 
     @Column(name = "dob")
     private LocalDate dob;
+
 
     @OneToMany(mappedBy = "actor")
     private Set<Play> plays = new LinkedHashSet<>();
