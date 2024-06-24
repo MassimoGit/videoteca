@@ -1,6 +1,6 @@
 package com.corso.videoteca.controllers;
 
-import com.corso.videoteca.dto.ActorDto;
+
 import com.corso.videoteca.dto.FilmSearchDto;
 import com.corso.videoteca.entities.Actor;
 import com.corso.videoteca.entities.Play;
@@ -58,7 +58,7 @@ public class ActorController {
 	@GetMapping("create")   // URL /actor/create
 	public String create(Model model) {
 		System.out.println("GET Actor CREATE");
-		ActorDto actor = new ActorDto();
+		Actor actor = new Actor();
 
 		model.addAttribute("form", actor);
 		
@@ -174,7 +174,7 @@ public class ActorController {
 	@PostMapping("plays/{id}")
 	public String storePlays(Model model,Play form,@PathVariable Long id ) {
 		System.out.println("POST Play");
-
+		System.out.println(form);
 		form.setId(null); //@todo controllare da dove arriva l'id
 		Actor actor = ar.findById(id).get();
 		form.setActor(actor);
@@ -183,7 +183,16 @@ public class ActorController {
 
 
 
-		return "redirect:/actor/plays/"+ form.getId();
+		return "redirect:/actor/plays/"+ actor.getId();
+	}
+
+	@PostMapping("plays/{playid}/delete")
+	public String deletePlays(Play form,@PathVariable(name = "playid") Long id ) {
+		System.out.println("Delete Play");
+		Play play = pr.findById(id).get();
+		pr.delete(play);
+
+		return "redirect:/actor/plays/"+ play.getId();
 	}
 
 }

@@ -29,19 +29,12 @@
                             <input type="date" class="form-control"  placeholder="Data di nascita"  th:field="*{dob}" />
                         </div>
                     </div>
-                    <div class="mb-3 row">
-                        <label for="genre" class="col-4 col-form-label">Film</label>
-                        <div class="col-8">
-                            <select class="form-control"  placeholder="Genere"  th:field="*{genre}" >
-                                <option value="">Selezionare un genere</option>
-                                <option th:each="genre : ${genres}"
-                                        th:value="${genre.id}"
-                                        th:text="${genre.name}"></option>
-                            </select>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="card-footer ">
+                    <button type="reset" class="btn btn-outline-warning">
+                        Annulla
+                    </button>
                     <button type="submit" class="btn btn-outline-primary">
                         Invia
                     </button>
