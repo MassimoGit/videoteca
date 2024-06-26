@@ -11,10 +11,7 @@ import com.corso.videoteca.repositories.PlayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -40,8 +37,10 @@ public class ActorController {
 	private FilmRepository fr;
 	@Autowired
 	private PlayRepository pr;
-	
-	@GetMapping("")  
+
+
+	// @RequestMapping(method = RequestMethod.GET, value ="")
+	@GetMapping("")
 	public String index(Model model) {
 
 		
@@ -114,46 +113,6 @@ public class ActorController {
 	}
 	
 	
-	@GetMapping("search")
-	public String search(Model model) {
-		
-		/*long genre_id = 1L;
-		Set<Actor> films =  ar.findByGenre_IdOrderByTitleAsc(genre_id);
-		
-		System.out.println(films);
-		model.addAttribute("form", new FilmSearchDto());
-		model.addAttribute("genres", gr.findAllByOrderByName())*/;
-		
-		return  "actor/search";
-	}
-	
-	
-	@PostMapping("search")
-	public String findSearch(FilmSearchDto form,Model model) {
-		
-		/*System.out.println(form);
-		
-		
-		if(form.getTitle() != null  && form.getTitle().length() >2 )
-		{
-			form.setTitle("%" +  form.getTitle()   +"%");
-		}
-		
-		System.out.println(form);
-		
-		if(form.getGenre_id() != null) {
-			Set<Actor> risultato = ar.findByGenre_IdAndTitleLikeIgnoreCaseOrderByTitleAsc(form.getGenre_id(),form.getTitle());
-			System.out.println(risultato);
-			model.addAttribute("films",risultato);
-		}
-		else {
-			Set<Actor> risultato = ar.findByTitleLikeIgnoreCaseOrderByTitleAsc(form.getTitle());
-			System.out.println(risultato);
-			model.addAttribute("films",risultato);
-		}*/
-
-		return "actor/index";
-	}
 
 	@GetMapping("plays/{id}")   // {id} è una path Variable
 	public String plays(@PathVariable Long id, Model model) {
